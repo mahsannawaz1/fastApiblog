@@ -41,6 +41,26 @@ app.include_router(posts.router,prefix="/api/posts",tags=["posts"])
 
 ################################ ### Web Endpoints
 
+## login and register template_routes
+@app.get("/login", include_in_schema=False)
+async def login_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "login.html",
+        {"title": "Login"},
+    )
+
+
+
+
+@app.get("/register",include_in_schema=False)
+async def register_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "register.html",
+        {"title": "Register"},
+    )
+
 @app.get("/",include_in_schema=False,name="home")
 @app.get("/posts",include_in_schema=False,name="posts")
 async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
